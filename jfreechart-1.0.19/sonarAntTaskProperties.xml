@@ -1,0 +1,18 @@
+<project name="Sonar Ant Runner Properties">
+
+    <property name="sonar.login" value="373769"/>
+    <property name="sonar.password" value="1234"/>
+    <property name="sonar.host.url" value="http://147.251.43.244:9000"/>
+    <property name="sonar.jdbc.url" value="jdbc:mysql://147.251.43.244:3306/sonar?useUnicode=true&amp;characterEncoding=utf8"/>
+    <property name="sonar.jdbc.username" value="sonar"/>
+    <property name="sonar.jdbc.password" value="sonar"/>
+    
+    <property name="sonar.projectKey" value="01.1.project.1"/>
+    <property name="sonar.projectName" value="Drimal-Novak"/>
+    <property name="sonar.projectVersion" value="1.0"/>
+    
+    <path id="classpath.sonarRunner">
+        <pathelement path="C:\Users\Drimal\Skola\PV260 Software Quality\PV260-SoftwareQuality\jfreechart-1.0.19\sonar-ant-task-2.2.jar"/>
+    </path>
+    
+</project>

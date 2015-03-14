@@ -1,0 +1,55 @@
+<project name="Sonar Ant Runner" default="analyze" basedir="." xmlns:sonar="antlib:org.sonar.ant">
+
+    <import file="sonarAntTaskProperties.xml"/>
+    <property name="src.dir" location="source"/>
+    <property name="lib.dir" location="lib"/>
+
+    <property name="sonar.language" value="java" />
+    <property name="sonar.sources" value="${src.dir}" />
+    <property name="sonar.java.libraries" value="${lib.dir}" />
+    <property name="sonar.sourceEncoding" value="UTF-8" />
+    
+    <target name="build">
+        <ant antfile="ant/build.xml" target="compile"/>
+    </target>
+    
+    <target name="analyze" depends="checkProperties, build" description="Upload metrics to Sonar">
+        <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+            <classpath refid="classpath.sonarRunner"/>
+        </taskdef>
+
+        <sonar:sonar/>
+    </target>
+
+    <target name="checkProperties" description="Check that all required properties were set">
+        <macrodef name="requiredProperty">
+            <attribute name="prop"/>
+            <sequential>
+                <fail message="Property @{prop} must be set">
+                    <condition>
+                        <not>
+                            <isset property="@{prop}"/>
+                        </not>
+                    </condition>
+                </fail>
+
+                <fail message="Property '@{prop}' must not be empty">
+                    <condition>
+                        <equals arg1="${@{prop}}" arg2=""/>
+                    </condition>
+                </fail>
+            </sequential>
+        </macrodef>
+
+        <requiredProperty prop="sonar.login" />
+        <requiredProperty prop="sonar.password" />
+        <requiredProperty prop="sonar.host.url" />
+        <requiredProperty prop="sonar.jdbc.username" />
+        <requiredProperty prop="sonar.jdbc.password" />
+        <requiredProperty prop="sonar.jdbc.url" />
+        <requiredProperty prop="sonar.projectKey" />
+        <requiredProperty prop="sonar.projectName" />
+        <requiredProperty prop="sonar.projectVersion" />
+    </target>
+    
+</project>
